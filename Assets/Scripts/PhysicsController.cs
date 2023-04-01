@@ -14,6 +14,7 @@ public class PhysicsController : MonoBehaviour
     Vector3 finalForce;
     Vector3 upwardForce;
     bool jumping = false;
+    bool isGrounded = false; 
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,7 @@ public class PhysicsController : MonoBehaviour
 
         finalForce = new Vector3(forwardForce, 0.0f, -lateralForce);
 
-        if (Input.GetKey("space"))
+        if (Input.GetKeyDown("space"))
         {
             upwardForce = new Vector3(0.0f, jumpForce, 0.0f);
             jumping = true;
@@ -50,11 +51,30 @@ public class PhysicsController : MonoBehaviour
         
         rb.AddTorque(finalForce);
 
-        if (jumping)
+        if (jumping && isGrounded)
         {
             rb.AddForce(upwardForce, ForceMode.Impulse);
             jumping = false;
+            isGrounded = false;
         }
         
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Floor"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Sticky"))
+        {
+            //rb.velocity *= 0.0f;
+            rb.angularVelocity *= 0.0f;
+        }
+    }
+
 }

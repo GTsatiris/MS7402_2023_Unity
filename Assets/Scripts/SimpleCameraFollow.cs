@@ -12,6 +12,7 @@ public class SimpleCameraFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //maintain the same offset as original setup
         offset = transform.position - objectToFollow.position;
     }
 
