@@ -16,11 +16,13 @@ public class SentryController : MonoBehaviour
     Transform target;
 
     bool isIdle;
+    Vector3 startingPoint;
 
     // Start is called before the first frame update
     void Start()
     {
         isIdle = true;
+        startingPoint = transform.position;
     }
 
     // Update is called once per frame
@@ -31,9 +33,11 @@ public class SentryController : MonoBehaviour
         Vector3 sentryToTarget = Vector3.Normalize(target.position - transform.position);
         float cosine = Vector3.Dot(transform.forward, sentryToTarget);
 
-        if ((distanceFromTarget <= detectionDist) && (cosine > 0.5f)) // CHASING STATE
+        if ((distanceFromTarget <= detectionDist) && (cosine > 0.26f)) // CHASING STATE
         {
             transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            transform.LookAt(target);
+            isIdle = false;
         }
         else // IDLE or RETURN STATES
         {
@@ -43,7 +47,14 @@ public class SentryController : MonoBehaviour
             }
             else //RETURN STATE
             {
+                transform.position = Vector3.MoveTowards(transform.position, startingPoint, speed * Time.deltaTime);
+                transform.LookAt(startingPoint);
 
+                float distanceFromOrigin = Vector3.Distance(transform.position, startingPoint);
+                if(distanceFromOrigin < 0.05f)
+                {
+                    isIdle = true;
+                }
             }
         }
     }

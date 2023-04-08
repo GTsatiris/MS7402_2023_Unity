@@ -950,10 +950,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2045810372}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78617ea3447089f40b144d52fea9a136, type: 3}
+  m_Script: {fileID: 11500000, guid: 93b1ff175b2401144b0ed221d2c228fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  rotationSpeed: 7
-  detectionDist: 5
-  target: {fileID: 881595677}
+  attributes:
+    transform: {fileID: 0}
+    target: {fileID: 881595677}
+    startingPoint: {x: 0, y: 0, z: 0}
+    rotationSpeed: 10
+    chaseSpeed: 4
+    returnSpeed: 3
+    detectionDist: 10
+    disengagementDist: 13
