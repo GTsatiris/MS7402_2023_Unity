@@ -8,6 +8,8 @@ TagManager:
   - Target
   - Sticky
   - Interactable
+  - Good
+  - Bad
   layers:
   - Default
   - TransparentFX
